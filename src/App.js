@@ -9,7 +9,7 @@ import {
   Routes,
 } from "react-router-dom";
 
-import { Navbar, Products } from "./components";
+import { Navbar, Products, Checkout } from "./components";
 import Cart from "./components/Cart/Cart";
 
 const App = () => {
@@ -57,8 +57,8 @@ const App = () => {
     <Router>
       <div>
         <Navbar totalItems={cart.total_items} />
-        <Routes>
-          <Route path="/">
+        <Switch>
+          <Route exact path="/">
             <Products products={products} onAddToCart={handleAddToCart} />
           </Route>
           <Route exact path="/cart">
@@ -69,7 +69,10 @@ const App = () => {
               handleEmptyCart={handleEmptyCart}
             />
           </Route>
-        </Routes>
+          <Route exact path="/checkout">
+            <Checkout cart={cart} />
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
