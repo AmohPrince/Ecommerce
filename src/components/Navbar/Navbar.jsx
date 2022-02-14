@@ -1,62 +1,91 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-
+import React, { useState } from "react";
 import {
   AppBar,
+  Toolbar,
+  IconButton,
   Badge,
   MenuItem,
   Menu,
   Typography,
-  Toolbar,
-  IconButton,
 } from "@material-ui/core";
-
 import { ShoppingCart } from "@material-ui/icons";
+import { Link, useLocation } from "react-router-dom";
 import useStyles from "./styles";
 
-const Navbar = ({ totalItems }) => {
+const PrimarySearchAppBar = ({ totalItems }) => {
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const classes = useStyles();
   const location = useLocation();
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  if (location.pathname === "/")
-    return (
-      <div>
-        <AppBar position="fixed" className={classes.AppBar} color="inherit">
-          <Toolbar>
-            <Typography
-              variant="h6"
-              className={classes.title}
-              color="inherit"
-              component={Link}
-              to="/"
-            >
-              <img
-                src="https://images.pexels.com/photos/5632382/pexels-photo-5632382.jpeg?cs=srgb&dl=pexels-karolina-grabowska-5632382.jpg&fm=jpg"
-                alt="Commerce.js"
-                height="25px"
-                className={classes.image}
-              />
-              Getyours.com
-            </Typography>
-            <div className={classes.grow} />
+  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
 
-            {location.pathname === "/" && (
-              <div className={classes.button}>
-                <IconButton
-                  aria-label="show cart items"
-                  color="inherit"
-                  component={Link}
-                  to="/cart"
-                >
-                  <Badge badgeContent={totalItems} color="secondary">
-                    <ShoppingCart />
-                  </Badge>
-                </IconButton>
-              </div>
-            )}
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
+  const mobileMenuId = "primary-search-account-menu-mobile";
+
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton
+          component={Link}
+          to="/cart"
+          aria-label="Show cart items"
+          color="inherit"
+        >
+          <Badge badgeContent={totalItems} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+        <p>Cart</p>
+      </MenuItem>
+    </Menu>
+  );
+
+  return (
+    <>
+      <AppBar position="fixed" className={classes.appBar} color="inherit">
+        <Toolbar>
+          <Typography
+            component={Link}
+            to="/"
+            variant="h6"
+            className={classes.title}
+            color="inherit"
+          >
+            <img
+              src="https://images.pexels.com/photos/5632382/pexels-photo-5632382.jpeg?cs=srgb&dl=pexels-karolina-grabowska-5632382.jpg&fm=jpg"
+              alt="commerce.js"
+              height="25px"
+              className={classes.image}
+            />
+            Getyours.com
+          </Typography>
+          <div className={classes.grow} />
+          {location.pathname === "/" && (
+            <div className={classes.button}>
+              <IconButton
+                component={Link}
+                to="/cart"
+                aria-label="Show cart items"
+                color="inherit"
+              >
+                <Badge badgeContent={totalItems} color="secondary">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
+    </>
+  );
 };
-export default Navbar;
+export default PrimarySearchAppBar;

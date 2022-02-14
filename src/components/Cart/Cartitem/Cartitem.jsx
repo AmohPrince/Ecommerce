@@ -4,16 +4,20 @@ import {
   Button,
   Card,
   CardActions,
-  CardMedia,
   CardContent,
+  CardMedia,
 } from "@material-ui/core";
 
 import useStyles from "./styles";
 
-const Cartitem = ({ item, onUpdateCartQuantity, onRemoveCartQuantity }) => {
+const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
   const classes = useStyles();
+  const handleUpdateCartQty = (lineItemId, newQuantity) =>
+    onUpdateCartQty(lineItemId, newQuantity);
+
+  const handleRemoveFromCart = (lineItemId) => onRemoveFromCart(lineItemId);
   return (
-    <Card>
+    <Card className="cart-item">
       <CardMedia
         image={item.media.source}
         alt={item.name}
@@ -21,14 +25,16 @@ const Cartitem = ({ item, onUpdateCartQuantity, onRemoveCartQuantity }) => {
       />
       <CardContent className={classes.cardContent}>
         <Typography variant="h4">{item.name}</Typography>
-        <Typography variant="h5">{item.name}</Typography>
+        <Typography variant="h5">
+          {item.line_total.formatted_with_symbol}
+        </Typography>
       </CardContent>
-      <CardActions className={classes.CardActions}>
+      <CardActions className={classes.cardActions}>
         <div className={classes.buttons}>
           <Button
             type="button"
             size="small"
-            onClick={() => onUpdateCartQuantity(item.id, item.quantity - 1)}
+            onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}
           >
             -
           </Button>
@@ -36,7 +42,7 @@ const Cartitem = ({ item, onUpdateCartQuantity, onRemoveCartQuantity }) => {
           <Button
             type="button"
             size="small"
-            onClick={() => onUpdateCartQuantity(item.id, item.quantity + 1)}
+            onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}
           >
             +
           </Button>
@@ -45,9 +51,7 @@ const Cartitem = ({ item, onUpdateCartQuantity, onRemoveCartQuantity }) => {
           variant="contained"
           type="button"
           color="secondary"
-          onClick={() => {
-            onRemoveCartQuantity(item.id);
-          }}
+          onClick={() => handleRemoveFromCart(item.id)}
         >
           Remove
         </Button>
@@ -56,4 +60,4 @@ const Cartitem = ({ item, onUpdateCartQuantity, onRemoveCartQuantity }) => {
   );
 };
 
-export default Cartitem;
+export default CartItem;
