@@ -30,14 +30,15 @@ const Checkout = ({ cart, onCaptureCheckout, order, error }) => {
   useEffect(() => {
     if (cart.id) {
       const generateToken = async () => {
-        try {
-          const token = await commerce.checkout.generateToken(cart.id, {
-            type: "cart",
-          });
-          setCheckoutToken(token);
-        } catch {
-          if (activeStep !== steps.length) history.push("/");
-        }
+        const token = await commerce.checkout.generateToken(cart.id, {
+          type: "cart",
+        });
+        setCheckoutToken(token);
+        // try {
+
+        // } catch {
+        //   if (activeStep !== steps.length) console.log("ostrich effect");
+        // }
       };
       generateToken();
     }

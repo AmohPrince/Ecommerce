@@ -8,6 +8,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart }) => {
   const classes = useStyles();
 
   const handleEmptyCart = () => onEmptyCart();
+  //console.log(cart); //cart verified to be arriving here
 
   const renderEmptyCart = () => (
     <Typography variant="subtitle1">

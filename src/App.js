@@ -8,24 +8,29 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); //Confirmed
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
+  //fetch products from commerce
   const fetchProducts = async () => {
     const { data } = await commerce.products.list();
     setProducts(data);
-
-    console.log(data);
   };
 
+  //fetch cart from commerce
   const fetchCart = async () => {
+    // setCart(commerce.cart.contents().then((items) => console.log(items)));
+    // console.log(cart);
+    // commerce.cart.contents().then((items) => console.log(items))
     setCart(await commerce.cart.retrieve());
   };
 
   const handleAddToCart = async (productId, quantity) => {
+    // commerce.cart .add("prod_G6kVw7KOKdw2eD", 5)  .then((response) => console.log(response));
     const item = await commerce.cart.add(productId, quantity);
+    // console.log(item);
 
     setCart(item.cart);
   };
