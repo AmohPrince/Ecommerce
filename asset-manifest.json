@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/ecommerce/static/js/main.bf55ef2d.js",
-    "index.html": "/ecommerce/index.html",
-    "main.bf55ef2d.js.map": "/ecommerce/static/js/main.bf55ef2d.js.map"
+    "main.js": "/Ecommerce/static/js/main.bf55ef2d.js",
+    "index.html": "/Ecommerce/index.html",
+    "main.bf55ef2d.js.map": "/Ecommerce/static/js/main.bf55ef2d.js.map"
   },
   "entrypoints": [
     "static/js/main.bf55ef2d.js"
