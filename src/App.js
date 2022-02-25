@@ -108,7 +108,7 @@ const App = () => {
               />
             }
           ></Route>
-          <Route
+          {/* <Route
             path="/checkout"
             element={
               <Checkout
@@ -118,7 +118,7 @@ const App = () => {
                 error={errorMessage}
               />
             }
-          ></Route>
+          ></Route> */}
           <Route
             path="*"
             element={
